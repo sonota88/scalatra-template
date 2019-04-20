@@ -11,9 +11,23 @@ class Page {
     this.state = {};
   }
 
-	init(){
+  init(){
     console.log("init");
-    this.render();
+
+    __g.api_v2("get", "/api/sample", {
+        fooBar: 123, b: { c: 456 }
+      }, (result)=>{
+      __g.unguard();
+      puts(result);
+      Object.assign(this.state, result);
+
+      this.render();
+
+    }, (errors)=>{
+      __g.unguard();
+      __g.printApiErrors(errors);
+      alert("Check console.");
+    });
   }
 
   getTitle(){
