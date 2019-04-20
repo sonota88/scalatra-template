@@ -4,6 +4,11 @@ import org.scalatra._
 
 class MyScalatraServlet extends ScalatraServlet {
 
+  def readStaticFile(path:String):String = {
+    val myAppDir = sys.env("MY_APP_DIR")
+    Utils.readFile(myAppDir + "/public" + path)
+  }
+
   get("/") {
 
     contentType = "application/json"
@@ -29,8 +34,7 @@ class MyScalatraServlet extends ScalatraServlet {
 
     if (requestPath.endsWith(".js")) {
       contentType = "text/javascript"
-      val myAppDir = sys.env("MY_APP_DIR")
-      Utils.readFile(myAppDir + "/public" + requestPath)
+      readStaticFile(requestPath)
     } else {
       "not found"
     }
