@@ -6,10 +6,16 @@ object Utils {
   
   def readFile(path:String):String = {
     val src = Source.fromFile(path)
-    val lines = src.getLines
-    var s = ""
-    lines.foreach{line => s += line + "\n" }
-    s
+    var content = ""
+
+    try {
+      val lines = src.getLines
+      lines.foreach{line => content += line + "\n" }
+    } finally {
+      src.close()
+    }
+
+    content
   }
 
 }
