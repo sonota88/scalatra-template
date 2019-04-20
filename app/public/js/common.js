@@ -24,10 +24,15 @@ const __g = {
     fd.append("_method", method.toUpperCase());
     fd.append("_params", JSON.stringify(data));
 
+    const headers = {
+      "X-HTTP-METHOD-OVERRIDE": method.toUpperCase()
+    };
+
     fetch(req, {
       method: 'POST',
       body: fd,
       credentials: 'include', // cookie をリクエストに含める
+      headers,
     }).then((res)=>{
       if (res.ok) {
         puts("res.ok == true", res);
