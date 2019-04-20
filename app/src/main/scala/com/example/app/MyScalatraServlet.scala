@@ -37,6 +37,27 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     compact(render(json))
   }
 
+  post("/api/sample") {
+    contentType = "application/json"
+
+    val json =
+      ("result" ->
+        ("id" -> 456) ~
+        ("a" ->
+          ("b" -> "foo") ~
+          ("c" -> List(1, 2, 3))
+        )
+      ) ~
+      ("errors" ->
+        List(
+          Map("trace" -> "{trace}", "msg" -> "{message}")
+        )
+      )
+
+    println(compact(render(json)))
+    compact(render(json))
+  }
+
   get("/") {
 
     val myAppDir = sys.env("MY_APP_DIR")
