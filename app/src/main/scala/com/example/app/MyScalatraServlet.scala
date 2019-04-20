@@ -19,6 +19,8 @@ class MyScalatraServlet extends ScalatraServlet {
 
   get("/html") {
 
+    println(sys.env("MY_APP_DIR"))
+
     contentType = "text/html"
 
     val src = Source.fromFile("./views/index.html")
