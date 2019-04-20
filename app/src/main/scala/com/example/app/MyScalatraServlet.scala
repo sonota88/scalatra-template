@@ -16,4 +16,17 @@ class MyScalatraServlet extends ScalatraServlet {
     """
   }
 
+  get("/html") {
+
+    contentType = "text/html"
+
+    """
+<html>
+<body>
+hello
+</body>
+</html>
+    """
+  }
+
 }
