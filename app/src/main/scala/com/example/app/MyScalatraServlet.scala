@@ -24,4 +24,15 @@ class MyScalatraServlet extends ScalatraServlet {
     Utils.readFile(myAppDir + "/views/index.html")
   }
 
+  notFound {
+    contentType = null
+
+    if (requestPath.endsWith(".js")) {
+      contentType = "text/javascript"
+      val myAppDir = sys.env("MY_APP_DIR")
+      Utils.readFile(myAppDir + "/public" + requestPath)
+    } else {
+      "not found"
+    }
+  }
 }
