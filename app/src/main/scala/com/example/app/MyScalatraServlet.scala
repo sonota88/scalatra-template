@@ -1,6 +1,7 @@
 package com.example.app
 
 import org.scalatra._
+import scala.io.Source
 
 class MyScalatraServlet extends ScalatraServlet {
 
@@ -20,13 +21,11 @@ class MyScalatraServlet extends ScalatraServlet {
 
     contentType = "text/html"
 
-    """
-<html>
-<body>
-hello
-</body>
-</html>
-    """
+    val src = Source.fromFile("./views/index.html")
+    val lines = src.getLines
+    var s = ""
+    lines.foreach{line => s += line + "\n" }
+    s
   }
 
 }
