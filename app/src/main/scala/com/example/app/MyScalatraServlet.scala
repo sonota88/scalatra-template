@@ -3,6 +3,10 @@ package com.example.app
 import org.scalatra._
 import java.nio.file.Paths
 
+import org.json4s._
+import org.json4s.JsonDSL._
+import org.json4s.jackson.JsonMethods._
+
 class MyScalatraServlet extends ScalatraServlet {
 
   def readStaticFile(path:String):String = {
@@ -13,15 +17,17 @@ class MyScalatraServlet extends ScalatraServlet {
   }
 
   get("/") {
-
     contentType = "application/json"
 
-    // views.html.hello()
-    """
-{
-  "a": 123456789
-}
-    """
+    val json =
+      ("id" -> 123) ~
+      ("a" ->
+        ("b" -> "foo") ~
+        ("c" -> List(1, 2, 3))
+      )
+
+    println(compact(render(json)))
+    compact(render(json))
   }
 
   get("/html") {
