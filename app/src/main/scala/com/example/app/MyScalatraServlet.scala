@@ -45,14 +45,14 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
 
     var blocks: List[List[String]] = List()
 
-    val sep = lines.head
+    val boundary = lines.head
     lines = lines.tail
 
     var buf: List[String] = List()
     for (line <- lines) {
       if (
-           line.equals(sep)
-        || line.equals(sep + "--")
+           line.equals(boundary)
+        || line.equals(boundary + "--")
       ) {
         blocks = buf.reverse :: blocks
         buf = List()
