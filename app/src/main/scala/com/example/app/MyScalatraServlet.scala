@@ -22,37 +22,21 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
 
   def parseRequestBody(body: String): scala.collection.mutable.Map[String, String] = {
     val sr = new StringReader(body)
-    val br = new BufferedReader(sr)
-
-    var lines: List[String] = List()
-
-    var doBreak = false
-    while (!doBreak) {
-      val line = br.readLine()
-      if (line == null) {
-        doBreak = true
-      } else {
-        lines = line :: lines
-      }
-    }
-
-    br.close()
+    var lines = Utils.readAllLines(sr)
     sr.close()
-
-    lines = lines.reverse
 
     // --------------------------------
 
     var blocks: List[List[String]] = List()
 
-    val boundary = lines.head
+    val boundary = lines.head.stripLineEnd
     lines = lines.tail
 
     var buf: List[String] = List()
     for (line <- lines) {
       if (
-           line.equals(boundary)
-        || line.equals(boundary + "--")
+           line.stripLineEnd.equals(boundary)
+        || line.stripLineEnd.equals(boundary + "--")
       ) {
         blocks = buf.reverse :: blocks
         buf = List()
