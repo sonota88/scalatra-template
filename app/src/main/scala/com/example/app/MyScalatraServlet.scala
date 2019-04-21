@@ -81,18 +81,19 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
       map.put(k, v)
     }
 
-    println(map)
+    // println(map)
     map
   }
 
   get("/api/sample") {
     println(multiParams)
     println(params)
+    println(request.contentType)
     println(request.getClass().getName())
     // println(request.body)
 
     val formParams = parseRequestBody(request.body)
-    println(formParams("_params"))
+    println("_params (" + formParams("_params") + ")")
 
     contentType = "application/json"
 
@@ -119,6 +120,9 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     println(params)
     println(params.get("_params"))
     // println(request.body)
+
+    val formParams = parseRequestBody(request.body)
+    println("_params (" + formParams("_params") + ")")
 
     contentType = "application/json"
 
