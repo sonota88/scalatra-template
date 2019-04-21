@@ -19,7 +19,7 @@ class Page {
   init(){
     console.log("init");
 
-    __g.api_v2("get", "/api/sample", {
+    __g.api_v2("get", "/api/sample?q1=321", {
         fooBar: 123, b: { c: 456 }
       }, (result)=>{
       __g.unguard();
@@ -44,7 +44,7 @@ class Page {
   }
 
   onclick_post(){
-    __g.api_v2("post", "/api/sample", {
+    __g.api_v2("post", "/api/sample?q1=654", {
         fooBar: 123, b: { c: 456 }
       }, (result)=>{
       __g.unguard();

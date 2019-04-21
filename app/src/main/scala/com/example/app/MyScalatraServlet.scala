@@ -1,7 +1,11 @@
 package com.example.app
 
 import org.scalatra._
+import java.io.StringReader
+import java.io.BufferedReader
 import java.nio.file.Paths
+import java.util.regex.Pattern
+import java.util.regex.Matcher
 
 import org.json4s._
 import org.json4s.JsonDSL._
@@ -16,7 +20,84 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     )
   }
 
+  def parseRequestBody(body: String): scala.collection.mutable.Map[String, String] = {
+    val sr = new StringReader(body)
+    val br = new BufferedReader(sr)
+
+    var lines: List[String] = List()
+
+    var doBreak = false
+    while (!doBreak) {
+      val line = br.readLine()
+      if (line == null) {
+        doBreak = true
+      } else {
+        lines = line :: lines
+      }
+    }
+
+    br.close()
+    sr.close()
+
+    lines = lines.reverse
+
+    // --------------------------------
+
+    var blocks: List[List[String]] = List()
+
+    val sep = lines.head
+    lines = lines.tail
+
+    doBreak = false
+    var buf: List[String] = List()
+    for (line <- lines) {
+      if (line.equals(sep)) {
+        blocks = buf.reverse :: blocks
+        buf = List()
+      } else {
+        buf = line :: buf
+      }
+    }
+    if (buf.size > 0) {
+      blocks = buf.reverse :: blocks
+    }
+    blocks = blocks.reverse
+
+    // --------------------------------
+
+    val map: scala.collection.mutable.Map[String, String] = scala.collection.mutable.Map()
+
+    for (block <- blocks) {
+      val pattern = Pattern.compile("Content-Disposition: form-data; name=\"(.+)\"")
+      val m: Matcher = pattern.matcher(block(0))
+      m.find()
+      val k: String = m.group(1)
+
+      val rest = block.tail.tail
+      var v = ""
+      for (line <- rest) {
+        if (line.equals(sep + "--")) {
+          // end of body
+        } else {
+          v = v + line
+        }
+      }
+
+      map.put(k, v)
+    }
+
+    map
+  }
+
   get("/api/sample") {
+    println(multiParams)
+    println(params)
+    println(request.getClass().getName())
+    // println(request.body)
+
+    val formParams = parseRequestBody(request.body)
+    println(formParams("_params"))
+
     contentType = "application/json"
 
     val json =
@@ -38,6 +119,11 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
   }
 
   post("/api/sample") {
+    println(multiParams)
+    println(params)
+    println(params.get("_params"))
+    // println(request.body)
+
     contentType = "application/json"
 
     val json =
