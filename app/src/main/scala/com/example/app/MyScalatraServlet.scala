@@ -48,18 +48,17 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     val sep = lines.head
     lines = lines.tail
 
-    doBreak = false
     var buf: List[String] = List()
     for (line <- lines) {
-      if (line.equals(sep)) {
+      if (
+           line.equals(sep)
+        || line.equals(sep + "--")
+      ) {
         blocks = buf.reverse :: blocks
         buf = List()
       } else {
         buf = line :: buf
       }
-    }
-    if (buf.size > 0) {
-      blocks = buf.reverse :: blocks
     }
     blocks = blocks.reverse
 
@@ -76,16 +75,13 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
       val rest = block.tail.tail
       var v = ""
       for (line <- rest) {
-        if (line.equals(sep + "--")) {
-          // end of body
-        } else {
-          v = v + line
-        }
+        v = v + line
       }
 
       map.put(k, v)
     }
 
+    println(map)
     map
   }
 
