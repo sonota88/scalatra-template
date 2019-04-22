@@ -74,16 +74,8 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     map
   }
 
-  def withOutputStream(os: OutputStream, fn: Function1[OutputStream, Unit]) = {
-    try {
-      fn.apply(os)
-    } finally {
-      os.close
-    }
-  }
-
   def appendToFile(path: String, text: String) = {
-    withOutputStream(
+    Utils.withOutputStream(
       new FileOutputStream(new File(path), true),
       (os: OutputStream) => {
         os.write(

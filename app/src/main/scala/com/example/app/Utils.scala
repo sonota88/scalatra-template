@@ -1,5 +1,6 @@
 package com.example.app
 
+import java.io.OutputStream
 import java.io.Reader
 
 import scala.collection.mutable.ListBuffer
@@ -48,6 +49,14 @@ object Utils {
 
   def intListToString(ns: List[Integer]): String = {
     String.valueOf(ns.map{ _.toChar }.toArray)
+  }
+
+  def withOutputStream(os: OutputStream, fn: Function1[OutputStream, Unit]) = {
+    try {
+      fn.apply(os)
+    } finally {
+      os.close
+    }
   }
 
 }
