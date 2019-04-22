@@ -51,17 +51,17 @@ object Utils {
     String.valueOf(ns.map{ _.toChar }.toArray)
   }
 
-  def withReader(r: Reader, fn: Function1[Reader, Unit]) = {
+  def withReader(r: Reader, fn: Reader => Unit) = {
     try {
-      fn.apply(r)
+      fn(r)
     } finally {
       r.close
     }
   }
 
-  def withOutputStream(os: OutputStream, fn: Function1[OutputStream, Unit]) = {
+  def withOutputStream(os: OutputStream, fn: OutputStream => Unit) = {
     try {
-      fn.apply(os)
+      fn(os)
     } finally {
       os.close
     }
