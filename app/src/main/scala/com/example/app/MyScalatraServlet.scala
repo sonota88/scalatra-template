@@ -26,14 +26,13 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
   }
 
   def parseRequestBody(body: String): scala.collection.mutable.Map[String, String] = {
-    var lines: List[String] = null
-
+    var lines =
     Utils.withReader(
       new StringReader(body),
       (r)=>{
-        lines = Utils.readAllLines(r)
+        Utils.readAllLines(r)
       }
-    )
+    ).asInstanceOf[List[String]]
 
     // --------------------------------
 

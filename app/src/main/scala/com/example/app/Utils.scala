@@ -51,7 +51,7 @@ object Utils {
     String.valueOf(ns.map{ _.toChar }.toArray)
   }
 
-  def withReader(r: Reader, fn: Reader => Unit) = {
+  def withReader(r: Reader, fn: Reader => Any) = {
     try {
       fn(r)
     } finally {
