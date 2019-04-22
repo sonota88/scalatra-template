@@ -1,8 +1,13 @@
 package com.example.app
 
 import org.scalatra._
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.io.StringReader
 import java.io.BufferedReader
+import java.io.Writer
+import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 import java.util.regex.Pattern
 import java.util.regex.Matcher
@@ -69,6 +74,16 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     map
   }
 
+  def appendToFile(path: String, text: String) = {
+    val os: OutputStream = new FileOutputStream(new File(path), true)
+
+    os.write(
+      text.getBytes(StandardCharsets.UTF_8)
+    )
+
+    os.close()
+  }
+
   get("/api/sample") {
     println(multiParams)
     println(params)
@@ -78,6 +93,8 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
 
     val formParams = parseRequestBody(request.body)
     println("_params (" + formParams("_params") + ")")
+
+    appendToFile("/tmp/sample.txt", "foo\n");
 
     contentType = "application/json"
 
