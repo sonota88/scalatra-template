@@ -1,4 +1,4 @@
-package com.example.app
+package myapp
 
 import org.scalatra._
 import java.io.File

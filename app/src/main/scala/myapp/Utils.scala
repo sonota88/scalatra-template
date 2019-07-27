@@ -1,4 +1,4 @@
-package com.example.app
+package myapp
 
 import java.io.OutputStream
 import java.io.Reader

@@ -1,4 +1,4 @@
-import com.example.app._
+import myapp._
 import org.scalatra._
 import javax.servlet.ServletContext
 
