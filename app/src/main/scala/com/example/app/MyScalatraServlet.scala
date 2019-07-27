@@ -57,7 +57,7 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
 
     // --------------------------------
 
-    val map: scala.collection.mutable.Map[String, String] = scala.collection.mutable.Map()
+    val mutMap: scala.collection.mutable.Map[String, String] = scala.collection.mutable.Map()
 
     for (block <- blocks) {
       val pattern = Pattern.compile("Content-Disposition: form-data; name=\"(.+)\"")
@@ -71,11 +71,11 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
         v = v + line
       }
 
-      map.put(k, v)
+      mutMap.put(k, v)
     }
 
-    // println(map)
-    map
+    // println(mutMap)
+    mutMap
   }
 
   def appendToFile(path: String, text: String) = {
