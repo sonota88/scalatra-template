@@ -16,7 +16,7 @@ import org.json4s._
 import org.json4s.JsonDSL._
 import org.json4s.jackson.JsonMethods._
 
-class MyScalatraServlet extends ScalatraServlet with MethodOverride {
+class MainServlet extends ScalatraServlet with MethodOverride {
 
   def readStaticFile(path:String):String = {
     val myAppDir = sys.env("MY_APP_DIR")
