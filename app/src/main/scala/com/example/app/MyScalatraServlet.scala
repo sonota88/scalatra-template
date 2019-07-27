@@ -57,7 +57,7 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
 
     // --------------------------------
 
-    val mutMap: scala.collection.mutable.Map[String, String] = scala.collection.mutable.Map()
+    val mutMap = scala.collection.mutable.Map[String, String]()
 
     for (block <- blocks) {
       val pattern = Pattern.compile("Content-Disposition: form-data; name=\"(.+)\"")
