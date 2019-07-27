@@ -25,7 +25,7 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     )
   }
 
-  def parseRequestBody(body: String): scala.collection.mutable.Map[String, String] = {
+  def parseRequestBody(body: String): Map[String, String] = {
     var lines =
       Utils.withReader(
         new StringReader(body),
@@ -75,7 +75,7 @@ class MyScalatraServlet extends ScalatraServlet with MethodOverride {
     }
 
     // println(mutMap)
-    mutMap
+    mutMap.toMap
   }
 
   def appendToFile(path: String, text: String) = {
