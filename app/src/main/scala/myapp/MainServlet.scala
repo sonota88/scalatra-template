@@ -12,7 +12,6 @@ import java.nio.file.Paths
 import java.util.regex.Pattern
 import java.util.regex.Matcher
 
-import org.json4s._
 import org.json4s.JsonDSL._
 import org.json4s.jackson.JsonMethods._
 
@@ -89,33 +88,6 @@ class MainServlet extends ScalatraServlet with MethodOverride {
     )
   }
 
-  /*
-{ "fooBar": 123, "b": {"c":456}, "d": "fdsa", "e": [1,"a"], "f": null
-  , "g": [true,false], "h": 123.456, "i": new Date() }
-=> JObject(
-     List(
-       (fooBar,JInt(123))
-     , (b,JObject(List((c,JInt(456)))))
-     , (d,JString(fdsa))
-     , (e,JArray(List(JInt(1), JString(a))))
-     , (f,JNull)
-     , (g,JArray(List(JBool(true), JBool(false))))
-     , (h,JDouble(123.456))
-     , (i,JString(2019-11-28T20:33:39.461Z))))
-   */
-  def parseJsonObject(json: String): Map[String, Any] = {
-    val data = org.json4s.jackson.JsonMethods.parse(json)
-    println(data)
-
-    data match {
-      case jo:JObject => println("JObject")
-      case ja:JArray => println("JArray")
-      case _ => println("other type")
-    }
-
-    data.values.asInstanceOf[Map[String, Any]]
-  }
-
   get("/api/sample") {
     println(multiParams)
     println(params)
@@ -159,7 +131,7 @@ class MainServlet extends ScalatraServlet with MethodOverride {
 
     val _params =
       Utils.jsonType(formParams("_params")) match {
-        case "object" => parseJsonObject(formParams("_params"))
+        case "object" => Utils.parseJsonObject(formParams("_params"))
         case _ => throw new RuntimeException("invalid JSON type")
       }
     println("_params =>", _params)
