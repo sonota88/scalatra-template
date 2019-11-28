@@ -1,10 +1,10 @@
-package com.example.app
+package myapp
 
 import org.scalatra.test.scalatest._
 
 class MyScalatraServletTests extends ScalatraFunSuite {
 
-  addServlet(classOf[myapp.MainServlet], "/*")
+  addServlet(classOf[MainServlet], "/*")
 
   test("GET / on MyScalatraServlet should return status 200") {
     get("/") {
