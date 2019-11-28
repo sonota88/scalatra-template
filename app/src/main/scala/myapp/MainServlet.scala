@@ -103,7 +103,7 @@ class MainServlet extends ScalatraServlet with MethodOverride {
      , (h,JDouble(123.456))
      , (i,JString(2019-11-28T20:33:39.461Z))))
    */
-  def parseJson(json: String): Map[String, Any] = {
+  def parseJsonObject(json: String): Map[String, Any] = {
     val data = org.json4s.jackson.JsonMethods.parse(json)
     println(data)
 
@@ -159,7 +159,7 @@ class MainServlet extends ScalatraServlet with MethodOverride {
 
     val _params =
       Utils.jsonType(formParams("_params")) match {
-        case "object" => parseJson(formParams("_params"))
+        case "object" => parseJsonObject(formParams("_params"))
         case _ => throw new RuntimeException("invalid JSON type")
       }
     println("_params =>", _params)
