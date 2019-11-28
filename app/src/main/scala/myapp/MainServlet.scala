@@ -89,6 +89,33 @@ class MainServlet extends ScalatraServlet with MethodOverride {
     )
   }
 
+  /*
+{ "fooBar": 123, "b": {"c":456}, "d": "fdsa", "e": [1,"a"], "f": null
+  , "g": [true,false], "h": 123.456, "i": new Date() }
+=> JObject(
+     List(
+       (fooBar,JInt(123))
+     , (b,JObject(List((c,JInt(456)))))
+     , (d,JString(fdsa))
+     , (e,JArray(List(JInt(1), JString(a))))
+     , (f,JNull)
+     , (g,JArray(List(JBool(true), JBool(false))))
+     , (h,JDouble(123.456))
+     , (i,JString(2019-11-28T20:33:39.461Z))))
+   */
+  def parseJson(json: String): Map[String, Any] = {
+    val data = org.json4s.jackson.JsonMethods.parse(json)
+    println(data)
+
+    data match {
+      case jo:JObject => println("JObject")
+      case ja:JArray => println("JArray")
+      case _ => println("other type")
+    }
+
+    data.values.asInstanceOf[Map[String, Any]]
+  }
+
   get("/api/sample") {
     println(multiParams)
     println(params)
@@ -129,6 +156,9 @@ class MainServlet extends ScalatraServlet with MethodOverride {
 
     val formParams = parseRequestBody(request.body)
     println("_params (" + formParams("_params") + ")")
+
+    val _params = parseJson(formParams("_params"))
+    println("_params =>", _params)
 
     contentType = "application/json"
 

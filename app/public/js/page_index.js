@@ -45,7 +45,14 @@ class Page {
 
   onclick_post(){
     __g.api_v2("post", "/api/sample?q1=654", {
-        fooBar: 123, b: { c: 456 }
+        fooBar: 123
+        ,b: { c: 456 }
+        ,d: "fdsa"
+        ,e: [1, "a"]
+        ,f: null
+        ,g: [true, false]
+        ,h: 123.456
+        ,i: new Date()
       }, (result)=>{
       __g.unguard();
       puts(result);
