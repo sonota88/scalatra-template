@@ -71,10 +71,10 @@ object Utils {
   }
 
   def jsonType(json: String): String = {
-    val stripped = json.trim
-    if (stripped.startsWith("{")) {
+    val trimmed = json.trim
+    if (trimmed.startsWith("{")) {
       "object"
-    } else if (stripped.startsWith("[")) {
+    } else if (trimmed.startsWith("[")) {
       "array"
     } else {
       throw new RuntimeException("not supported")
