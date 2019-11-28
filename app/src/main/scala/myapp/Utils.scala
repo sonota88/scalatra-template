@@ -95,7 +95,7 @@ object Utils {
      , (h,JDouble(123.456))
      , (i,JString(2019-11-28T20:33:39.461Z))))
    */
-  def parseJsonObject(json: String): Map[String, Any] = {
+  def parseJsonAsObject(json: String): Map[String, Any] = {
     val data = org.json4s.jackson.JsonMethods.parse(json)
     // println(data)
 

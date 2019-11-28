@@ -131,7 +131,7 @@ class MainServlet extends ScalatraServlet with MethodOverride {
 
     val _params =
       Utils.jsonType(formParams("_params")) match {
-        case "object" => Utils.parseJsonObject(formParams("_params"))
+        case "object" => Utils.parseJsonAsObject(formParams("_params"))
         case _ => throw new RuntimeException("invalid JSON type")
       }
     println("_params =>", _params)
