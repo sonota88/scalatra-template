@@ -67,4 +67,15 @@ object Utils {
     }
   }
 
+  def jsonType(json: String): String = {
+    val stripped = json.trim
+    if (stripped.startsWith("{")) {
+      "object"
+    } else if (stripped.startsWith("[")) {
+      "array"
+    } else {
+      throw new RuntimeException("not supported")
+    }
+  }
+
 }
