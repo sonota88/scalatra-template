@@ -10,4 +10,4 @@ _get_app_dir() {
 
 export MY_APP_DIR="$(_get_app_dir)"
 
-~/app/sbt/1.2.8/bin/sbt "$@"
+~/app/sbt/1.3.13/bin/sbt "$@"
