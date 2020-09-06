@@ -1,5 +1,15 @@
 #!/bin/bash
 
+_print_project_dir() {
+  local real_path="$(readlink --canonicalize "$0")"
+  (
+    cd "$(dirname "$real_path")"
+    pwd
+  )
+}
+
+# --------------------------------
+
 cmd="$1"; shift
 case $cmd in
   package)
