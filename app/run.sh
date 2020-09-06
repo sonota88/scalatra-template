@@ -45,7 +45,7 @@ case "$1" in
     ;;
   up-prod)
     export PUBLIC_DIR="$PWD"
-    export PORT=8104
+    export PORT=8108
     java -jar target/scala-2.12/static-server-scalatra-assembly-0.1.0-SNAPSHOT.jar
     ;;
   test)

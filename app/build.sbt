@@ -23,4 +23,4 @@ enablePlugins(ScalatraPlugin)
 
 // https://stackoverflow.com/questions/17854835/changing-scalatra-port
 enablePlugins(JettyPlugin)
-containerPort in Jetty := 8104
+containerPort in Jetty := 8108
