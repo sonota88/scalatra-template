@@ -24,6 +24,7 @@ object Utils {
     content
   }
 
+  // TODO
   def readFileBinary(path:String): String = {
     val src = Source.fromFile(path)
     var content = ""
