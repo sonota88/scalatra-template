@@ -1,5 +1,6 @@
 package myapp
 
+import java.io.InputStream
 import java.io.OutputStream
 import java.io.Reader
 
@@ -59,6 +60,14 @@ object Utils {
       fn(r)
     } finally {
       r.close
+    }
+  }
+
+  def withInputStream(is: InputStream, fn: InputStream => Unit) = {
+    try {
+      fn(is)
+    } finally {
+      is.close
     }
   }
 
