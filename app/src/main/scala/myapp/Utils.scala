@@ -142,6 +142,11 @@ object Utils {
     }
   }
 
+  def dirExists(path: String): Boolean = {
+    val file = new java.io.File(path)
+    file.exists
+  }
+
   def toCanonicalPath(path: String): String = {
     val file = new java.io.File(path)
     file.getCanonicalPath
