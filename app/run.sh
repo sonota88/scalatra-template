@@ -15,6 +15,9 @@ case $cmd in
   package)
     ./sbt.sh assembly
     ;;
+  test)
+    ./sbt.sh test
+    ;;
   run-jar)
     export MY_APP_DIR="$PWD"
     export PORT=9000
