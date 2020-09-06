@@ -6,7 +6,8 @@ import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.servlet.ScalatraListener
 
 object JettyLauncher {
-  def main(args: Array[String]){
+
+  def main(args: Array[String]) {
     val port = if (System.getenv("PORT") != null) {
       System.getenv("PORT").toInt
     } else {
@@ -25,4 +26,5 @@ object JettyLauncher {
     server.start
     server.join
   }
+
 }
