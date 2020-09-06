@@ -26,6 +26,21 @@ object Utils {
     content
   }
 
+  // TODO
+  def readFileBinary(path:String): String = {
+    val src = Source.fromFile(path)
+    var content = ""
+
+    try {
+      val lines = src.getLines
+      lines.foreach{line => content += line + "\n" }
+    } finally {
+      src.close()
+    }
+
+    content
+  }
+
   def readAllLines(r: Reader): List[String] = {
     val lines: ListBuffer[String] = ListBuffer()
 
