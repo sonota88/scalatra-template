@@ -142,6 +142,11 @@ object Utils {
     }
   }
 
+  def mkdirs(path: String): Unit = {
+    val file = new java.io.File(path)
+    file.mkdirs
+  }
+
   def dirExists(path: String): Boolean = {
     val file = new java.io.File(path)
     file.exists
