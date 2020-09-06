@@ -65,7 +65,7 @@ object Utils {
   }
 
   def readResourceFile(path: String): String = {
-    Source.fromResource("dir.js")
+    Source.fromResource(path)
       .getLines
       .map({line => line + "\n"})
       .mkString("")
