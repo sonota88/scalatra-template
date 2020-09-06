@@ -117,4 +117,14 @@ object Utils {
     data.values.asInstanceOf[Map[String, Any]]
   }
 
+  def getExt(path: String): String = {
+    val basename = path.split("/").last
+    val basenameParts = basename.split("\\.")
+    if (2 <= basenameParts.length) {
+      "." + basenameParts.last
+    } else {
+      ""
+    }
+  }
+
 }
