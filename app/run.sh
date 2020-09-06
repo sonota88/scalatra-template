@@ -10,27 +10,46 @@ _print_project_dir() {
 
 # --------------------------------
 
+RES_DIR=src/main/resources
+SBT_CMD=~/app/sbt/1.3.13/bin/sbt
+
+cmd_package(){
+  cp ${RES_DIR}/logback_prod.xml \
+     ${RES_DIR}/logback.xml
+
+  ./sbt.sh assembly
+
+  cp ${RES_DIR}/logback_devel.xml \
+     ${RES_DIR}/logback.xml
+}
+
 cmd_up_devel(){
+  cp ${RES_DIR}/logback_devel.xml \
+     ${RES_DIR}/logback.xml
+
+  export PUBLIC_DIR="$PWD"
   ./sbt.sh '~;jetty:stop;jetty:start'
 }
 
 # --------------------------------
 
-cmd="$1"; shift
-case $cmd in
-  test)
-    ./sbt.sh test
-    ;;
+cd "$(_print_project_dir)"
+
+case "$1" in
   package)
-    ./sbt.sh assembly
+    cmd_package
     ;;
   up)
+    # devel
     cmd_up_devel
     ;;
-  run-jar)
-    export MY_APP_DIR="$PWD"
-    export PORT=9000
-    java -jar target/scala-2.12/my-scalatra-web-app-assembly-0.1.0-SNAPSHOT.jar
+  up-prod)
+    export PUBLIC_DIR="$PWD"
+    export PORT=8104
+    java -jar target/scala-2.12/static-server-scalatra-assembly-0.1.0-SNAPSHOT.jar
+    ;;
+  test)
+    $SBT_CMD test
     ;;
   *)
     echo "invalid command" >&2
