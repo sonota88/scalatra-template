@@ -142,4 +142,9 @@ object Utils {
     }
   }
 
+  def toCanonicalPath(path: String): String = {
+    val file = new java.io.File(path)
+    file.getCanonicalPath
+  }
+
 }
