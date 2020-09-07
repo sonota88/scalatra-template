@@ -18,14 +18,14 @@ cmd_up_devel(){
 
 cmd="$1"; shift
 case $cmd in
+  test)
+    ./sbt.sh test
+    ;;
   package)
     ./sbt.sh assembly
     ;;
   up)
     cmd_up_devel
-    ;;
-  test)
-    ./sbt.sh test
     ;;
   run-jar)
     export MY_APP_DIR="$PWD"
