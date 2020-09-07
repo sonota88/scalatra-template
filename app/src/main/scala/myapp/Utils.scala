@@ -1,5 +1,6 @@
 package myapp
 
+import java.io.BufferedReader
 import java.io.InputStream
 import java.io.OutputStream
 import java.io.Reader
@@ -91,6 +92,14 @@ object Utils {
       fn(os)
     } finally {
       os.close
+    }
+  }
+
+  def withBufferedReader(br: BufferedReader, fn: BufferedReader => Unit) = {
+    try {
+      fn(br)
+    } finally {
+      br.close
     }
   }
 
