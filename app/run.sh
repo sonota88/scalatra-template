@@ -36,6 +36,9 @@ cmd_up_devel(){
 cd "$(_print_project_dir)"
 
 case "$1" in
+  test)
+    $SBT_CMD test
+    ;;
   package)
     cmd_package
     ;;
@@ -47,9 +50,6 @@ case "$1" in
     export PUBLIC_DIR="$PWD"
     export PORT=8108
     java -jar target/scala-2.12/static-server-scalatra-assembly-0.1.0-SNAPSHOT.jar
-    ;;
-  test)
-    $SBT_CMD test
     ;;
   *)
     echo "invalid command" >&2
