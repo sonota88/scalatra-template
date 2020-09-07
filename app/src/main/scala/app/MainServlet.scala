@@ -200,7 +200,6 @@ ${js}
     Unit
   }
 
-
   get("/*") {
     // puts("-->> /*")
     val realPath = sys.env("PUBLIC_DIR") + "" + requestPath
@@ -226,7 +225,7 @@ ${js}
 
     val is = getClass
 	      .getClassLoader
-          .getResourceAsStream("/favicon.ico")
+          .getResourceAsStream("favicon.ico")
 
     contentType = "image/x-icon"
 
