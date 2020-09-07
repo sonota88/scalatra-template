@@ -193,31 +193,13 @@ ${js}
     )
   }
 
-  def readContent(file: java.io.File) = {
-    val os = response.getOutputStream
-
-    Utils.withInputStream(
+  def readContent(file: java.io.File): Unit = {
+    copyStream(
       new java.io.BufferedInputStream(
         new java.io.FileInputStream(file)
       ),
-      (is)=>{
-        val bufSize = 4096
-        val buf = new Array[Byte](bufSize)
-        var numRead = 0
-        var eof = false
-
-        while (! eof) {
-          numRead = is.read(buf, 0, bufSize)
-          // puts("read: " + numRead)
-          if (numRead == -1) {
-            eof = true
-          } else {
-            os.write(buf, 0, numRead)
-          }
-        }
-      }
+      response.getOutputStream
     )
-    // os.close
 
     Unit
   }
@@ -243,32 +225,15 @@ ${js}
   }
 
   get("/internal_favicon.ico") {
-    val os: java.io.OutputStream = response.getOutputStream()
-
     val is = getClass
 	      .getClassLoader
           .getResourceAsStream("favicon.ico")
 
     contentType = "image/x-icon"
 
-    Utils.withInputStream(
+    copyStream(
       is,
-      (_is)=>{
-        val bufSize = 4096
-        val buf = new Array[Byte](bufSize)
-        var numRead = 0
-        var eof = false
-
-        while (!eof) {
-          numRead = _is.read(buf, 0, bufSize)
-          puts("read: " + numRead)
-          if (numRead == -1) {
-            eof = true
-          } else {
-            os.write(buf, 0, numRead)
-          }
-        }
-      }
+      response.getOutputStream
     )
 
     Unit
