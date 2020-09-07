@@ -171,6 +171,28 @@ ${js}
     html
   }
 
+  def copyStream(is: java.io.InputStream, os: java.io.OutputStream): Unit = {
+    Utils.withInputStream(
+      is,
+      (is)=>{
+        val bufSize = 4096
+        val buf = new Array[Byte](bufSize)
+        var numRead = 0
+        var eof = false
+
+        while (! eof) {
+          numRead = is.read(buf, 0, bufSize)
+          // puts("read: " + numRead)
+          if (numRead == -1) {
+            eof = true
+          } else {
+            os.write(buf, 0, numRead)
+          }
+        }
+      }
+    )
+  }
+
   def readContent(file: java.io.File) = {
     val os = response.getOutputStream
 
