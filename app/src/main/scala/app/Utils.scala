@@ -108,6 +108,16 @@ object Utils {
     }
   }
 
+  def getExt(path: String): String = {
+    val basename = path.split("/").last
+    val basenameParts = basename.split("\\.")
+    if (2 <= basenameParts.length) {
+      "." + basenameParts.last
+    } else {
+      ""
+    }
+  }
+
   def mkdirs(path: String): Unit = {
     val file = new java.io.File(path)
     file.mkdirs
@@ -121,16 +131,6 @@ object Utils {
   def toCanonicalPath(path: String): String = {
     val file = new java.io.File(path)
     file.getCanonicalPath
-  }
-
-  def getExt(path: String): String = {
-    val basename = path.split("/").last
-    val basenameParts = basename.split("\\.")
-    if (2 <= basenameParts.length) {
-      "." + basenameParts.last
-    } else {
-      ""
-    }
   }
 
 }
