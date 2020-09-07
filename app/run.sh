@@ -10,10 +10,19 @@ _print_project_dir() {
 
 # --------------------------------
 
+cmd_up_devel(){
+  ./sbt.sh '~;jetty:stop;jetty:start'
+}
+
+# --------------------------------
+
 cmd="$1"; shift
 case $cmd in
   package)
     ./sbt.sh assembly
+    ;;
+  up)
+    cmd_up_devel
     ;;
   test)
     ./sbt.sh test
