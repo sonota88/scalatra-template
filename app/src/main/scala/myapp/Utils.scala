@@ -45,30 +45,31 @@ object Utils {
   def readAllLines(r: Reader): List[String] = {
     val lines: ListBuffer[String] = ListBuffer()
 
-    // val r: java.io.Reader = new java.io.InputStreamReader(System.in, "UTF-8")
-    var n: Int = 0
-    val buf: ListBuffer[Integer] = ListBuffer()
+    withBufferedReader(
+      new BufferedReader(r),
+      (br)=>{
+        val sb = new java.lang.StringBuilder()
 
-    while (n >= 0) {
-      n = r.read()
-      if (n < 0) {
-        // break
-      } else {
-        buf += n
-        if (n == '\n') {
-          lines += intListToString(buf.toList)
-          buf.clear
+        var done = false
+        while (!done) {
+          val n = br.read
+          if (n == -1) {
+            done = true
+          } else {
+            sb.append(Character.toChars(n))
+            if (n == '\n') {
+              lines += sb.toString
+              sb.setLength(0)
+            }
+          }
+        }
+        if (0 < sb.length) {
+          lines += sb.toString
         }
       }
-    }
-    lines += intListToString(buf.toList)
-    buf.clear
+    )
 
     lines.toList
-  }
-
-  def intListToString(ns: List[Integer]): String = {
-    String.valueOf(ns.map{ _.toChar }.toArray)
   }
 
   def withReader(r: Reader, fn: Reader => Any) = {
