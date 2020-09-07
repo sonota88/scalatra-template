@@ -72,6 +72,13 @@ object Utils {
     lines.toList
   }
 
+  def readResourceFile(path: String): String = {
+    Source.fromResource(path)
+      .getLines
+      .map({line => line + "\n"})
+      .mkString("")
+  }
+
   def withReader(r: Reader, fn: Reader => Any) = {
     try {
       fn(r)
