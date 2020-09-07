@@ -78,6 +78,8 @@ class MainServlet extends ScalatraServlet {
   }
 
   def readDir(requestPath: String, file: java.io.File) = {
+    val realPath = sys.env("PUBLIC_DIR") + "" + requestPath
+
     val pathHead =
       if (requestPath.endsWith("/")) {
         requestPath
@@ -93,7 +95,7 @@ class MainServlet extends ScalatraServlet {
 <body>
 <head>
   <meta charset="utf-8" />
-  <title>${requestPath} | static-server-scalatra</title>
+  <title>${realPath} | static-server-scalatra</title>
 
   <link rel="shortcut icon" href="/internal_favicon.ico" type="image/x-icon" />
 
@@ -127,7 +129,7 @@ ${js}
 
 </head>
 <a href="../">../</a>
-<h1>${requestPath}</h1>
+<h1>${realPath}</h1>
 <hr />
 
 <pre style="
