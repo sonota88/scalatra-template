@@ -128,13 +128,15 @@ ${js}
 </script>
 
 </head>
-<a href="../">../</a>
 <h1>${realPath}</h1>
 <hr />
 
 <pre style="
     line-height: 150%;
-  ">"""
+  ">
+- <a href="../">../</a>
+
+"""
 
     val LF = "\n"
 
