@@ -239,4 +239,11 @@ ${js}
     Unit
   }
 
+  get("/shutdown") {
+    puts("bye");
+    System.exit(0);
+
+    Unit
+  }
+
 }
