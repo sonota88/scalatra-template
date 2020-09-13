@@ -37,6 +37,8 @@ cmd_up_prod(){
 
 # --------------------------------
 
+prod_port=8108
+
 cd "$(_print_project_dir)"
 
 case "$1" in
@@ -52,7 +54,13 @@ case "$1" in
     ;;
   up-prod)
     export PUBLIC_DIR="$PWD"
-    export PORT=8108
+    export PORT=$prod_port
+    cmd_up_prod
+    ;;
+  restart-prod)
+    export PUBLIC_DIR="$PWD"
+    export PORT=$prod_port
+    curl http://localhost:${PORT}/shutdown
     cmd_up_prod
     ;;
   *)
