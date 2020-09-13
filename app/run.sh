@@ -31,6 +31,10 @@ cmd_up_devel(){
   ./sbt.sh '~;jetty:stop;jetty:start'
 }
 
+cmd_up_prod(){
+  java -jar target/scala-2.12/static-server-scalatra-assembly-0.1.0-SNAPSHOT.jar
+}
+
 # --------------------------------
 
 cd "$(_print_project_dir)"
@@ -49,7 +53,7 @@ case "$1" in
   up-prod)
     export PUBLIC_DIR="$PWD"
     export PORT=8108
-    java -jar target/scala-2.12/static-server-scalatra-assembly-0.1.0-SNAPSHOT.jar
+    cmd_up_prod
     ;;
   *)
     echo "invalid command" >&2
